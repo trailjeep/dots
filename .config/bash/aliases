@@ -1,0 +1,182 @@
+alias cd..='cd ..'
+alias datm='date "+[ %F %A %r %Z ]"'
+alias hg='history -a;history -n;history | grep'
+alias psa='ps auwx'
+alias cp='cp -p'
+alias man='man -a'
+alias ping='ping -c 10'
+alias openports='netstat -nape --inet'
+alias scrs='xwd -root | convert xwd:- ~/screenshot.png' # depends imagemagick
+alias ws='xwd -frame | convert xwd:- ~/windowshot.png' # depends imagemagick
+alias clip='xclip' # input to clipboard use xclip
+alias clop='xclip -o' # output from clipboard use xclip
+ 
+# grep ignore case & color
+alias egrep='egrep -i --color=auto'
+alias fgrep='fgrep -i --color=auto'
+alias grep='grep -i --color=auto'
+ 
+alias diff='diff --color=auto'
+
+# ls
+alias l='ls -CF'
+alias la='ls -A'
+# alias ll='LC_COLLATE=C ls -halF --color=auto'
+alias ll='ls -l $LS_OPTIONS'
+alias ls='ls $LS_OPTIONS'
+# alias ls='ls --color=auto'
+alias lm='ls -alF | more'
+
+# [ -x /usr/bin/lsd ] && alias ll='lsd -alF --date=date --group-dirs=first'
+[[ "$(command -v exa)" ]] && alias ll='exa --long --group --links --icons --classify --color=auto --all --sort=name --group-directories-first --time=modified --time-style=long-iso --extended --git'
+
+# nav
+alias ..='cd ..'
+alias ..2='cd ../..'
+alias ..3='cd ../../..'
+alias ..4='cd ../../../..'
+alias ..5='cd ../../../../..'
+
+alias kdesu='kdesudo'
+alias avconv='ffmpeg'
+
+alias wget='wget --continue --content-disposition'
+
+alias locate='locate -i'
+alias gunzip='gunzip -k'
+alias bunzip2='bunzip2 -k'
+
+# sudo -> su
+# alias su='/usr/bin/sudo -i'
+
+# apt
+if [[ "$HOSTNAME" == "NAILAH" ]]; then
+	[[ $EUID -ne 0 ]] && alias upd='sudo apt update' || alias upd='apt update'
+	[[ $EUID -ne 0 ]] && alias upg='sudo apt update && sudo apt upgrade' || alias upg='apt update && apt upgrade'
+	[[ $EUID -ne 0 ]] && alias upgd='sudo apt update && sudo apt full-upgrade' || alias upgd='apt update && apt full-upgrade'
+	[[ $EUID -ne 0 ]] && alias pkgcln='sudo dpkg --configure -a && sudo dpkg -C && sudo apt install -f && sudo apt autoremove -y && sudo apt autoclean -y && sudo apt -y clean' || alias pkgcln='dpkg --configure -a && dpkg -C && apt install -f && apt autoremove -y && apt autoclean -y && apt -y clean'
+fi
+
+# pacman
+#if [[ "$HOSTNAME" == "DESKTOP-JEFF" ]]; then
+if [ true ]; then
+	#alias pms='pacman -Ss'   # search for pkg
+	alias pms='function _pms(){ expac -Ss "%n|%v|%d" $1 | column -t -s"|" | sort; };_pms'
+	alias pmq='pacman -Q'    # query pkg info
+	alias pmqi='pacman -Qi'  # query detailed pkg info
+	alias pmql='pacman -Ql'  # query pkg files
+	[[ $EUID -ne 0 ]] && alias pmi='sudo pacman -S' || alias pmi='pacman -S'    # install pkg
+	[[ $EUID -ne 0 ]] && alias pmr='sudo pacman -Rns' || alias pmr='pacman -Rns'  # remove pkg + unneeded deps + conf
+	[[ $EUID -ne 0 ]] && alias pmy='sudo pacman -Syy' || alias pmy='pacman -Syy' # force sync repos
+	[[ $EUID -ne 0 ]] && alias pmu='sudo pacman -Syyuu' || alias pmu='pacman -Syyuu' # full system upgrade / enable downgrade
+	[[ $EUID -ne 0 ]] && alias pmd='sudo pacman -Syyuuw --noconfirm' || alias pmd='pacman -Syyuuw --noconfirm' # just download updates
+	[[ $EUID -ne 0 ]] && alias pmid='sudo pacman -Suu --noconfirm && sudo pacdiff' || alias pmid='pacman -Suu --noconfirm && pacdiff' # install downloaded
+	alias pmo='pacman -Qdt'  # list orphans
+	[[ $EUID -ne 0 ]] && alias pmor='sudo pacman -Rns $(pacman -Qtdq)' || alias pmor='pacman -Rns $(pacman -Qtdq)' # recursively remove orphans
+	[[ $EUID -ne 0 ]] && alias pmfy='sudo pacman -Fy' || alias pmfy='pacman -Fy'  # sync file db
+	alias pmfs='pacman -Fs'  # find pkg providing file
+fi
+
+# system
+[[ $EUID -ne 0 ]] && alias rl0='sudo systemctl isolate poweroff.target' || alias rl0='systemctl isolate poweroff.target' # poweroff
+[[ $EUID -ne 0 ]] && alias rl1='sudo systemctl isolate rescue.target' || alias rl1='systemctl isolate rescue.target' # single user
+[[ $EUID -ne 0 ]] && alias rl3='sudo systemctl isolate multi-user.target' || alias rl3='systemctl isolate multi-user.target' # multi-user / network / no gui
+[[ $EUID -ne 0 ]] && alias rl5='sudo systemctl isolate default.target' || alias rl5='systemctl isolate default.target' # multi-user / network / gui
+[[ $EUID -ne 0 ]] && alias rl6='sudo systemctl isolate 	reboot.target' || alias rl6='systemctl isolate reboot.target' # reboot
+
+alias g='git'	# git
+alias dcs='dconf dump / | grep -i'					# search dconf values and keys
+alias gss='gsettings list-recursively | grep -i'	# search dconf values and keys
+alias stow='stow -v'	# stow verbose
+alias dd='dd status=progress'	# dd progress
+alias rm='rm -i'	# rm interactive
+alias ifconfig='echo -e "\n** Deprecated: use ip **\n"; ip a'
+alias df='df -h'	# disk free human readable
+alias du='du -hx'	# disk usage human readable
+alias more='less'	# less is more
+alias vi='vim'
+alias diff='colordiff'
+alias pgrep='pgrep -a'
+
+# dotfiles git alias
+# [The best way to store your dotfiles: A bare Git repository](https://www.atlassian.com/git/tutorials/dotfiles)
+alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias dt='dotfiles'
+dotadd() {
+	[[ "$1" == '-e' ]] && { ${EDITOR:-vim} ~/.gittrack && return 0; }
+	if [[ "$1" =~ '*' || -e "$1" ]]; then
+		echo "$1" >> ~/.gittrack
+		echo "$1 added to ~/.gittrack"
+		sort -o ~/.gittrack ~/.gittrack
+	else
+		echo "Error: file/directory does not exist!"
+		return 1
+	fi
+}
+alias dta='dotadd'
+
+# barrier kvm
+if [[ $(command -v barrier) ]]; then
+	alias barrier-start='systemctl --user start barrier.service'
+	alias barrier-stop='systemctl --user stop barrier.service'
+	alias barrier-status='systemctl --user is-active barrier.service'
+fi
+
+alias taz='ssh -l admin -p 22 TAZ'
+alias nailah='ssh -l root -p 22 NAILAH'
+alias maisie='ssh -l root -p 22 MAISIE'
+
+alias irc='irssi -n trailjeep -c freenode'
+
+alias cava='/bin/konsole --nofork --profile cava --hide-menubar --hide-tabbar -qwindowtitle cava &'
+alias tunes='/bin/konsole --nofork --profile tunes --hide-menubar --hide-tabbar -qwindowtitle tunes &'
+alias glmviz='glmviz config-stereo-jeff &'
+alias vis1='glmviz'
+alias vis2='cava'
+
+alias podplay='mplayer -af scaletempo -speed 1.5 '	# mplayer play podcasts @1.5x
+
+alias cls='clear;uname -a;echo;lsb_release -ds;echo;date "+[ %F %A %r %Z ]";echo;fortune;echo' # clear screen
+
+# ANSI colors
+alias ansi-colors='for attr in $(seq 0 1); do for fg in $(seq 30 37); do for bg in $(seq 40 47); do printf "\033[$attr;${bg};${fg}m$attr;$fg;$bg\033[m "; done; echo; done; done'
+
+alias md='mkdir -pv'
+alias distro='lsb_release -a'
+
+# external ip
+alias extip='dig +short myip.opendns.com @resolver1.opendns.com'
+
+# minidlna
+if [[ "$HOSTNAME" == "DESKTOP-JEFF" || "$HOSTNAME" == "LAPTOP-JEFF" ]]; then
+	alias dlna-pr0n='ssh root@NAILAH "/bin/systemctl stop minidlna; /bin/sed -i -e \"s|db_dir=/var/cache/minidlna/Movies|db_dir=/var/cache/minidlna/pr0n|\" -e \"s|media_dir=V,/mnt/Movies|media_dir=V,/mnt/pr0n|\" /etc/minidlna.conf; /bin/systemctl start minidlna"'
+	alias dlna-movies='ssh root@NAILAH "/bin/systemctl stop minidlna; /bin/sed -i -e \"s|db_dir=/var/cache/minidlna/pr0n|db_dir=/var/cache/minidlna/movies|\" -e \"s|media_dir=V,/mnt/pr0n|media_dir=V,/mnt/Movies|\" /etc/minidlna.conf; /bin/systemctl start minidlna"'
+	alias dlna-stop='ssh root@NAILAH "/bin/systemctl stop minidlna"'
+	alias dlna-status='ssh root@NAILAH "/bin/systemctl status minidlna | grep -e Active: -e Process:"'
+	alias dlna-rescan='ssh root@NAILAH "minidlnad -R && systemctl force-reload minidlna"' # rescan minidlna media dirs (webstats=:8200)
+fi
+
+# weather & moon phase
+# https://github.com/chubin/wttr.in http://wttr.in/:help
+alias wx='curl "http://wttr.in/06437"'
+alias moon='curl "http://wttr.in/moon"'
+
+# restart plasma moved to script 'r' in ~/.local/bin/ so i could use w/krunner
+# alias r='echo "Restarting Plasma..."; kquitapp5 plasmashell && kstart5 plasmashell > /dev/null 2>&1'
+
+# logout self
+alias lout='loginctl terminate-user `whoami`'
+
+# wrong command executed
+alias fix='`!!:$`'
+
+alias matrix='tmatrix -t `echo "$USER@$HOSTNAME"`'
+
+alias cht='cht.sh'
+
+# calc plasmoid
+#alias calc='plasmawindowed org.kde.plasma.calculator >/dev/null 2>&1 &'
+alias calc='[[ $(pgrep -f calculator) ]] && pkill -f calculator || plasmawindowed org.kde.plasma.calculator &>/dev/null &'
+
+# conky
+alias rdr='[[ $(pgrep -f radar.conf) ]] && pkill -f radar.conf || /usr/bin/conky --alignment=middle_middle -dqc ~/.config/conky/radar.conf'

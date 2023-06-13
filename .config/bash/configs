@@ -1,0 +1,60 @@
+# http://www.gnu.org/software/bash/manual/bashref.html#The-Shopt-Builtin
+
+shopt -s autocd			# Assume "cd" if cmd matches dir name
+#shopt -s cdable_vars	# Assume args to "cd" which don't match dir refer to var
+shopt -s cdspell		# Autocorrect typos with "cd"
+shopt -s checkhash		# Check if hashed cmds exist before exec
+shopt -s checkjobs		# Check stopped/running jobs before exit
+shopt -s checkwinsize	# Update win size after every cmd
+shopt -s cmdhist		# Try and save multi-line cmds as single entry
+shopt -s direxpand		# Use word expansion for dir names
+shopt -s dirspell		# Try to autocorrect typos during dir completion
+shopt -s dotglob		# Include hidden files and dirs in expansion
+shopt -s extglob		# Enable extended pattern matching features
+shopt -s globstar		# Enable support for recursive globbing via "**"
+shopt -s histappend		# Append to history file instead of overwriting
+#shopt -s nullglob		# Allow filename patterns matching no files to expand to null string
+shopt -s gnu_errfmt
+shopt -s expand_aliases
+
+#CDPATH="."				# : sep list of dirs for "cd" search path
+export HISTSIZE=5000			# Max cmds to retain in history
+export HISTFILESIZE=25000		# Max lines to retain in history
+#export HISTTIMEFORMAT="%FT%R " # output the time in 'history'
+#export HISTTIMEFORMAT='%F_%T ' # output the time in 'history'
+export HISTTIMEFORMAT="" # Save the timestamp, but don't output it
+export HISTCONTROL="ignoreboth:erasedups"	# Don't insert dup cmds or lines with a leading space
+export HISTIGNORE="bg:clear:exit:fg:history:enc*:dec*"	# Exclude patterns from history
+#export PROMPT_COMMAND="history -a"	# Save cmd to history before next prompt
+#export PROMPT_COMMAND="history -n; history -w; history -c; history -r"
+# [How To Use Bash History Commands and Expansions on a Linux VPS](https://www.digitalocean.com/community/tutorials/how-to-use-bash-history-commands-and-expansions-on-a-linux-vps)
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+#tac "$HISTFILE" | awk '!x[$0]++' | tac >"$HISTFILE"
+# [How can I remove duplicates in my .bash_history, preserving order?](https://unix.stackexchange.com/a/419779)
+hst=$(tac "$HISTFILE" | awk '!x[$0]++')
+echo "$hst" | tac >"$HISTFILE"
+
+#PROMPT_DIRTRIM=4		# Trailing dirs to retain (subject to prompt string)
+
+# search bash history with <- & ->
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
+
+# alt-h = open manpage
+bind '"\eh": "\C-a\eb\ed\C-y\e#man \C-y\C-m\C-p\C-p\C-a\C-d\C-e"'
+
+# !!<space> = replaces !! w/previous command
+bind Space:magic-space
+
+# Change the window title of X terminals
+: '
+case ${TERM} in
+	xterm*|rxvt*|Eterm*|aterm|kterm|gnome*|interix|konsole*)
+		PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\007"'
+		#PS1="\[\e]0;\u@\h: \w\a\]$PS1"
+		;;
+	screen*)
+		PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\033\\"'
+		;;
+esac
+'

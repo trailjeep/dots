@@ -1,0 +1,90 @@
+# cd = cd+ll
+cd() { newdir="$*"; [ "$#" -eq 0 ] && newdir="$HOME"; builtin cd "$newdir" && ll; }
+
+# backup file
+bup() { cp -a "$1" "$1.`date +%s`.ORG"; }
+
+# resize /tmp tmpfs
+rsz-tmp() { sudo mount -o remount,size="$1",noatime /tmp; }
+
+tldrs() { tldr -l -p default | fzf -1 -q "$1" --preview='cat {}' | xargs bash -c 'cmd=$0; tldr $(basename ${cmd%.md})'; }
+
+# encrypt/decrypt strings compatible w/dokuwiki plugin encrypted passwords
+encstr() { echo "$1" | openssl aes-256-cbc -pbkdf2 -e -k "$2" | openssl base64 -e; }
+decstr() { echo "$1" | openssl base64 -d | openssl aes-256-cbc -pbkdf2 -d -k "$2"; }
+encfl() { openssl aes-256-cbc -pbkdf2 -e -k "$2" -in "$1" -out "$1".dat; }
+decfl() ( openssl aes-256-cbc -pbkdf2 -d -k "$2" -in "$1" -out ${1%.dat}; )
+encdir() ( tar cz "$1" | openssl aes-256-cbc -pbkdf2 -e -k "$2" -out ${1%/}.dat; )
+decdir() { openssl aes-256-cbc -pbkdf2 -d -k "$2" -in "$1" | tar xz; }
+
+# erase sensitive info fr/history
+rmhist() {
+	[ "$1" = "" ] && { echo "Must specify a pattern!"; return 1; }
+	i=`history | grep -c "$1"`
+	[ "$i" -eq 1 ] && { echo "No matches found!"; history -d $((HISTCMD-1)); return 0; }
+	echo -n "Found $i matches. Removing entry #'s: "
+	until [ "$i" -eq 0 ]; do
+		n=`history | grep -m 1 "$1" | awk '{print $1}'`
+		history -d "$n"
+		echo -n "$n "
+		((--i))
+	done
+	history -w
+}
+
+# Uncompress the file passed as an argument (thanks stackoverflow)
+extract () {
+	if [ -f $1 ] ; then
+		case $1 in
+			*.tar.bz2)	tar xvjf $1	;;
+			*.tar.gz)	tar xvzf $1	;;
+			*.bz2)	bunzip2 $1	;;
+			*.rar)	unrar x $1	;;
+			*.gz)	gunzip $1	;;
+			*.tar)	tar xvf $1	;;
+			*.tbz2)	tar xvjf $1	;;
+			*.tgz)	tar xvzf $1	;;
+			*.zip)	unzip $1	;;
+			*.Z)	uncompress $1	;;
+			*.7z)	7z x $1	;;
+			*)	echo "don't know how to extract '$1'..." ;;
+		esac
+	else
+		echo "'$1' is not a valid file!"
+	fi
+}
+
+colors() {
+	local fgc bgc vals seq0
+	printf "Color escapes are %s\n" '\e[${value};...;${value}m'
+	printf "Values 30..37 are \e[33mforeground colors\e[m\n"
+	printf "Values 40..47 are \e[43mbackground colors\e[m\n"
+	printf "Value  1 gives a  \e[1mbold-faced look\e[m\n\n"
+	# foreground colors
+	for fgc in {30..37}; do
+		# background colors
+		for bgc in {40..47}; do
+			fgc=${fgc#37} # white
+			bgc=${bgc#40} # black
+			vals="${fgc:+$fgc;}${bgc}"
+			vals=${vals%%;}
+			seq0="${vals:+\e[${vals}m}"
+			printf "  %-9s" "${seq0:-(default)}"
+			printf " ${seq0}TEXT\e[m"
+			printf " \e[${vals:+${vals+$vals;}}1mBOLD\e[m"
+		done
+		echo; echo
+	done
+}
+
+ntfy() {
+	url='https://ntfy.sh/'
+	msg="$1"
+	topic="${2:-anvynu}"
+	curl -d "$msg" "$url/$topic"
+}
+
+rot() {
+	# rot 13 + rot 5 = rot 18 | rot 135:q
+	tr 'A-Za-z0-9' 'N-ZA-Mn-za-m5-90-4' <<< "$1"
+}
