@@ -53,3 +53,6 @@ rsync --recursive --verbose --exclude '.git' tmpdotfiles/ $HOME/
 rm -r tmpdotfiles
 ```
 
+## References
+- [Dotfiles: Best Way to Store in a Bare Git Repository](https://www.atlassian.com/git/tutorials/dotfiles)
+- [Keep dotfiles where they belong and avoid symlinks entirely.](https://github.com/anandpiyer/.dotfiles/tree/master/.dotfiles#keep-dotfiles-where-they-belong-and-avoid-symlinks-entirely)
