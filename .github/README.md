@@ -33,9 +33,8 @@ vim $HOME/.github/README.md
 
 ### Add Files
 ```
-dga /path/to/file
+dga /path/to/file1 /path/to/file2 /path/to/dir/ ...
 ```
-
 ### Commit
 ```
 dgc
