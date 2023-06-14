@@ -9,9 +9,6 @@ export PAGER="/usr/bin/less"
 export BROWSER="/usr/bin/firefox"
 export INPUTRC="$HOME/.inputrc"
 
-
-# GNU stow
-export STOW_DIR="$HOME/.dot-pub"
 # ls
 export LS_OPTIONS='--color=auto -A -F -X -B -h -v -b -T 0 --group-directories-first --quoting-style=shell-escape --time-style=iso'
 # git
@@ -27,5 +24,6 @@ export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswi
 # export GTK_USE_PORTAL=1
 # export GDK_DEBUG=portals
 
+# ZSH plugins
 export YSU_MESSAGE_POSITION="after"	# before|after
 export YSU_MODE=ALL					# BESTMATCH|ALL
