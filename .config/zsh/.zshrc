@@ -7,13 +7,22 @@ fi
 
 source ~/.zplug/init.zsh
 
-# Sources
-#zplug "~/.config/zsh/aliases_common", from:local
+HISTSIZE=5000
+#HISTFILE=~/.zsh_history
+SAVEHIST=5000
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt incappendhistory
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
 
 # Plugins
-zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-autosuggestions"
-zplug "zsh-users/zsh-syntax-highlighting"                                       
+zplug "zsh-users/zsh-syntax-highlighting" # before zsh-history-substring-search
+zplug "zsh-users/zsh-history-substring-search"                                                                          
 zplug "zap-zsh/supercharge"
 zplug "zap-zsh/fzf"
 zplug "zap-zsh/sudo"
