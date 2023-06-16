@@ -1,5 +1,3 @@
-HISTSIZE=100000
-SAVEHIST=100000
 export ED="/usr/bin/nvim"
 export EDITOR="/usr/bin/nvim"
 export VISUAL="/usr/bin/nvim"
@@ -25,6 +23,9 @@ export BAT_THEME="Dracula"
 # not working here? use /etc/environment?
 # export GTK_USE_PORTAL=1
 # export GDK_DEBUG=portals
+
+# [zplug](https://github.com/zplug/zplug)
+export ZPLUG_LOADFILE="$ZDOTDIR/plugins.zplug"
 
 ### ZSH plugins
 # MichaelAquilina/zsh-you-should-use

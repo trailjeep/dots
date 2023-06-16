@@ -8,7 +8,7 @@ fi
 source ~/.zplug/init.zsh
 
 # Plugins
-source $ZDOTDIR/plugins.zplug
+#source $ZDOTDIR/plugins.zplug
 
 # local
 zplug "$ZDOTDIR/aliases", from:local, use:"*.zsh"
