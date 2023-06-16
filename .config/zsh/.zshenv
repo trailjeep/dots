@@ -24,6 +24,10 @@ export BAT_THEME="Dracula"
 # export GTK_USE_PORTAL=1
 # export GDK_DEBUG=portals
 
+export COWPATH="$HOME/.local/share/cows"
+export FORPATH="$HOME/.local/share/fortune"
+
+
 # [zplug](https://github.com/zplug/zplug)
 export ZPLUG_LOADFILE="$ZDOTDIR/plugins.zplug"
 

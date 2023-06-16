@@ -2,6 +2,9 @@ zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-syntax-highlighting", from:github, defer:2 # before zsh-history-substring-search                   
 zplug "zsh-users/zsh-history-substring-search"                                                                          
 zplug "plugins/colored-man-pages", from:oh-my-zsh                                                                       
+# command not found
+# sudo pacman -S pkgfile && sudo pkgfile -u
+# systemctl enable --now pkgfile-update.timer
 zplug "plugins/command-not-found", from:oh-my-zsh                                                                       
 zplug "zap-zsh/supercharge"                                                                                             
 zplug "zap-zsh/sudo"
