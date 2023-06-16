@@ -27,6 +27,8 @@ fi
 
 alias wget='wget --continue --content-disposition'
 
+alias cat='bat'
+
 alias locate='locate -i'
 
 alias gunzip='gunzip -k'

@@ -18,6 +18,8 @@ export GIT_CONFIG_PARAMETERS="'user.name=$USER@$HOSTNAME'"
 # Set all Java apps to use GTK+ font & theme settings (https://wiki.manjaro.org/index.php?title=Set_all_Java_apps_to_use_GTK%2B_font_%26_theme_settings)
 export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel ${_JAVA_OPTIONS}"
 
+export BAT_THEME="Dracula"
+
 # Consistent file dialog under KDE Plasma <https://wiki.archlinux.org/title/Uniform_look_for_Qt_and_GTK_applications#QGtkStyle>
 # firefox use kde file chooser
 # not working here? use /etc/environment?
