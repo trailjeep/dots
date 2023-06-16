@@ -21,10 +21,10 @@ setopt hist_find_no_dups
 
 # Plugins
 zplug "zsh-users/zsh-autosuggestions"
-zplug "zsh-users/zsh-syntax-highlighting" # before zsh-history-substring-search
+zplug "zsh-users/zsh-syntax-highlighting", from:github, defer:2 # before zsh-history-substring-search
 zplug "zsh-users/zsh-history-substring-search"                                                                          
 zplug "zap-zsh/supercharge"
-zplug "zap-zsh/fzf"
+#zplug "zap-zsh/fzf"
 zplug "zap-zsh/sudo"
 zplug "hlissner/zsh-autopair"
 zplug "romkatv/powerlevel10k", as:theme, depth:1

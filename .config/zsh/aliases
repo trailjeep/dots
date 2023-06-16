@@ -126,4 +126,3 @@ alias dgls='dotgit ls-tree -r HEAD --name-only'
 alias dgrm='dotgit rm --cached'
 alias dgs='dotgit status'
 alias dgp='dotgit push -u origin main'
-

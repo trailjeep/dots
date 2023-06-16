@@ -24,6 +24,10 @@ export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswi
 # export GTK_USE_PORTAL=1
 # export GDK_DEBUG=portals
 
-# ZSH plugins
+### ZSH plugins
+# MichaelAquilina/zsh-you-should-use
 export YSU_MESSAGE_POSITION="after"	# before|after
 export YSU_MODE=ALL					# BESTMATCH|ALL
+# zsh-users/zsh-autosuggestions
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff" #,bg=cyan,bold,underline"
+
