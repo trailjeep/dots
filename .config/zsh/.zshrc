@@ -7,36 +7,12 @@ fi
 
 source ~/.zplug/init.zsh
 
-HISTSIZE=5000
-#HISTFILE=~/.zsh_history
-SAVEHIST=5000
-HISTDUP=erase
-setopt appendhistory
-setopt sharehistory
-setopt incappendhistory
-setopt hist_ignore_all_dups
-setopt hist_save_no_dups
-setopt hist_ignore_dups
-setopt hist_find_no_dups
-
 # Plugins
-zplug "zsh-users/zsh-autosuggestions"
-zplug "zsh-users/zsh-syntax-highlighting", from:github, defer:2 # before zsh-history-substring-search
-zplug "zsh-users/zsh-history-substring-search"                                                                          
-zplug "zap-zsh/supercharge"
-#zplug "zap-zsh/fzf"
-zplug "zap-zsh/sudo"
-zplug "hlissner/zsh-autopair"
-zplug "romkatv/powerlevel10k", as:theme, depth:1
-zplug "plugins/git", from:oh-my-zsh
-zplug "plugins/isodate", from:oh-my-zsh
-zplug "plugins/archlinux", from:oh-my-zsh
-zplug "MichaelAquilina/zsh-you-should-use"
-zplug "embeddedpenguin/sanekeybinds"
+source $ZDOTDIR/plugins.zplug
 
-# Sources                                                                       
-source $HOME/.config/zsh/aliases
-source $HOME/.config/zsh/functions
+# local
+zplug "$ZDOTDIR/aliases", from:local, use:"*.zsh"
+zplug "$ZDOTDIR/functions", from:local, use:"*.zsh"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then

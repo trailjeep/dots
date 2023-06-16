@@ -72,13 +72,8 @@ alias distro='lsb_release -a'
 alias hg='history|grep'
 alias cpv='rsync -ah --info=progress2'
 
-#if $(command -v trash >/dev/null 2>&1); then
-#	rm() {
-#		for a in "$@"; do
-#			[[ ${a::1} == '-' ]] || trash-put "$a"
-#        done
-#	}
-#fi
+# [trash-cli](https://github.com/sindresorhus/trash-cli)
+alias rm='trash'
 
 # ANSI colors
 alias ansi-colors='for attr in $(seq 0 1); do for fg in $(seq 30 37); do for bg in $(seq 40 47); do printf "\033[$attr;${bg};${fg}m$attr;$fg;$bg\033[m "; done; echo; done; done'

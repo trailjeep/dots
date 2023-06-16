@@ -1,0 +1,13 @@
+zplug "zsh-users/zsh-autosuggestions"                                                                                   
+zplug "zsh-users/zsh-syntax-highlighting", from:github, defer:2 # before zsh-history-substring-search                   
+zplug "zsh-users/zsh-history-substring-search"                                                                          
+zplug "plugins/colored-man-pages", from:oh-my-zsh                                                                       
+zplug "plugins/command-not-found", from:oh-my-zsh                                                                       
+zplug "zap-zsh/supercharge"                                                                                             
+zplug "zap-zsh/sudo"
+zplug "hlissner/zsh-autopair"                                                                                           
+zplug "romkatv/powerlevel10k", as:theme, depth:1                                                                        
+zplug "plugins/git", from:oh-my-zsh                                                                                     
+zplug "plugins/isodate", from:oh-my-zsh                                                                                 
+zplug "MichaelAquilina/zsh-you-should-use"                                                                              
+zplug "embeddedpenguin/sanekeybinds"
