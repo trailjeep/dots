@@ -2,8 +2,7 @@ zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-syntax-highlighting", from:github, defer:2 # before zsh-history-substring-search                   
 zplug "zsh-users/zsh-history-substring-search"                                                                          
 zplug "plugins/colored-man-pages", from:oh-my-zsh                                                                       
-# sudo pacman -S pkgfile && sudo pkgfile -u && systemctl enable --now pkgfile-update.timer
-zplug "plugins/command-not-found", from:oh-my-zsh
+zplug "plugins/command-not-found", from:oh-my-zsh, if:"pacman -Q pkgfile" # sudo pkgfile -u && systemctl enable --now pkgfile-update.timer
 zplug "zap-zsh/supercharge"                                                           
 zplug "zap-zsh/sudo"
 zplug "hlissner/zsh-autopair"                                                                                           
@@ -11,3 +10,9 @@ zplug "romkatv/powerlevel10k", as:theme, depth:1
 zplug "plugins/isodate", from:oh-my-zsh                                                                                 
 zplug "MichaelAquilina/zsh-you-should-use"
 zplug "embeddedpenguin/sanekeybinds"
+zplug "plugins/archlinux", from:oh-my-zsh, if:"command -v pacman"
+zplug "plugins/debian", from:oh-my-zsh, if:"command -v apt"
+zplug "plugins/docker", from:oh-my-zsh, if:"command -v docker"
+zplug "plugins/docker-compose", from:oh-my-zsh, if:"command -v docker-compose"
+zplug "plugins/systemd", from:oh-my-zsh
+zplug "plugins/web-search", from:oh-my-zsh

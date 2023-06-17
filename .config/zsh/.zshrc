@@ -23,7 +23,7 @@ for file in "$ZDOTDIR"/aliases/*.zsh; do source "$file"; done
 for file in "$ZDOTDIR"/functions/*.zsh; do source "$file"; done
 
 # Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
+if ! zplug check; then # --verbose; then
     printf "Install? [y/N]: "
     if read -q; then
         echo; zplug install
