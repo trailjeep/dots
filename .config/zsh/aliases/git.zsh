@@ -1,0 +1,4 @@
+# git
+#
+alias g='git'
+

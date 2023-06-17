@@ -35,13 +35,6 @@ alias gunzip='gunzip -k'
 alias bunzip2='bunzip2 -k'
 alias xz='xz -k'
 
-# system runlevel equivs
-[[ $EUID -ne 0 ]] && alias rl0='sudo systemctl isolate poweroff.target' || alias rl0='systemctl isolate poweroff.target' # poweroff
-[[ $EUID -ne 0 ]] && alias rl1='sudo systemctl isolate rescue.target' || alias rl1='systemctl isolate rescue.target' # single user
-[[ $EUID -ne 0 ]] && alias rl3='sudo systemctl isolate multi-user.target' || alias rl3='systemctl isolate multi-user.target' # multi-user / network / no gui
-[[ $EUID -ne 0 ]] && alias rl5='sudo systemctl isolate default.target' || alias rl5='systemctl isolate default.target' # multi-user / network / gui
-[[ $EUID -ne 0 ]] && alias rl6='sudo systemctl isolate 	reboot.target' || alias rl6='systemctl isolate reboot.target' # reboot
-
 alias stow='stow -v'	# stow verbose
 
 alias dd='dd status=progress'	# dd progress
@@ -109,17 +102,6 @@ if [[ $XDG_CURRENT_DESKTOP == "KDE" ]]; then
     alias calc='[[ $(pgrep -f calculator) ]] && pkill -f calculator || plasmawindowed org.kde.plasma.calculator &>/dev/null &'
 fi
 
-alias journalctl='journalctl -o short-iso'
 
 alias musikcube='/bin/konsole --nofork --profile tunes --hide-menubar --hide-tabbar -qwindowtitle musikcube -e musikcube &; disown'
 alias pyradio='/bin/konsole --nofork --profile tunes --hide-menubar --hide-tabbar -qwindowtitle pyradio -e pyradio &; disown'
-
-# Dotfiles
-alias dotgit='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-alias dg='dotgit'
-alias dga='dotgit add'
-alias dgc='dotgit commit -a --allow-empty-message --no-edit'
-alias dgls='dotgit ls-tree -r HEAD --name-only'
-alias dgrm='dotgit rm --cached'
-alias dgs='dotgit status'
-alias dgp='dotgit push -u origin main'
