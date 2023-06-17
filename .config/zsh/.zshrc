@@ -1,5 +1,9 @@
-source "$ZDOTDIR/term/quotes.zsh"
-myquotes
+# must be before p10k instant prompt
+if $(command -v fortune); then
+	cols=$(tput cols)
+	fortune -e "$FORPATH/my-collected-quotes" | fold -s -w "$cols"
+	echo
+fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -14,8 +18,9 @@ source ~/.zplug/init.zsh
 #source $ZDOTDIR/plugins.zplug
 
 # local
-zplug "$ZDOTDIR/aliases", from:local, use:"*.zsh"
-zplug "$ZDOTDIR/functions", from:local, use:"*.zsh"
+#zplug "$ZDOTDIR/aliases", from:local, use:"*.zsh"
+for file in "$ZDOTDIR"/aliases/*.zsh; do source "$file"; done
+for file in "$ZDOTDIR"/functions/*.zsh; do source "$file"; done
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
