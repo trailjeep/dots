@@ -1,5 +1,5 @@
 # must be before p10k instant prompt
-if $(command -v fortune); then
+if $(command -v fortune >/dev/null); then
 	cols=$(tput cols)
 	fortune -e "$FORPATH/my-collected-quotes" | fold -s -w "$cols"
 	echo
@@ -41,5 +41,3 @@ bindkey '^ ' autosuggest-accept
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
-
-
