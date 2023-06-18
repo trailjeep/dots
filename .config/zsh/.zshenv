@@ -37,4 +37,11 @@ export YSU_MESSAGE_POSITION="after"	# before|after
 export YSU_MODE=ALL					# BESTMATCH|ALL
 # zsh-users/zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff" #,bg=cyan,bold,underline"
+# web-search
+ZSH_WEB_SEARCH_ENGINES=(
+	reddit	"https://www.reddit.com/search/?q="
+	arch	"https://wiki.archlinux.org/index.php?search="
+	aur		"https://aur.archlinux.org/packages?K="
+	amazon	"https://www.amazon.com/s?k="
+)
 

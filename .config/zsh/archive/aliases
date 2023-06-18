@@ -1,0 +1,206 @@
+alias cd..='cd ..'
+alias ..='cd ..'
+alias ..2='cd ../..'
+alias ..3='cd ../../..'
+alias ..4='cd ../../../..'
+alias ..5='cd ../../../../..'
+
+alias datm='date --iso-8601=ns'
+alias psa='ps auwx'
+alias cp='cp -p'
+alias man='man -a'
+
+alias oports='ss -ltnp'
+alias cports='ss -t'
+alias lports='ss -ta'
+
+alias clip='xclip' # ->xclipboard
+alias clop='xclip -o' # xclipboard->
+
+# grep ignore case & color
+alias egrep='egrep -i --color=auto'
+alias fgrep='fgrep -i --color=auto'
+alias grep='grep -i --color=auto'
+
+alias diff='diff --color=auto -u0'
+
+# ls
+if $(command -v exa >/dev/null 2>&1); then
+	alias ls='exa --group --links --icons --classify --color=auto --sort=name --group-directories-first --git'
+	alias ll='exa --long --group --links --icons --classify --color=auto --all --sort=name --group-directories-first --time=modified --time-style=long-iso --extended --git'
+else
+	alias ll='ls -Falt'
+fi
+
+alias wget='wget --continue --content-disposition'
+
+alias locate='locate -i'
+alias gunzip='gunzip -k'
+alias bunzip2='bunzip2 -k'
+alias xz='xz -k'
+
+# use pipx for commands
+alias pip='/usr/bin/pipx'
+alias pip3='/usr/bin/pipx'
+
+# apt
+if $(command -v apt >/dev/null 2>&1); then
+	[[ $EUID -ne 0 ]] && alias upd='sudo apt update' || alias upd='apt update'
+	[[ $EUID -ne 0 ]] && alias upg='sudo apt update && sudo apt upgrade' || alias upg='apt update && apt upgrade'
+	[[ $EUID -ne 0 ]] && alias upgd='sudo apt update && sudo apt full-upgrade' || alias upgd='apt update && apt full-upgrade'
+	[[ $EUID -ne 0 ]] && alias pkgcln='sudo dpkg --configure -a && sudo dpkg -C && sudo apt install -f && sudo apt autoremove -y && sudo apt autoclean -y && sudo apt -y clean' || alias pkgcln='dpkg --configure -a && dpkg -C && apt install -f && apt autoremove -y && apt autoclean -y && apt -y clean'
+fi
+
+# pacman
+alias pacdiff='eos-pacdiff'
+if $(command -v pacman >/dev/null 2>&1); then
+	alias pms='pacman -Ss' # search for pkg
+	alias pmq='pacman -Q'  # list installed pkgs
+	alias pmf='pacman -F'  # find pkg providing file
+	[[ $EUID -ne 0 ]] && alias pmi='sudo pacman -S' || alias pmi='pacman -S'    # install pkg
+	[[ $EUID -ne 0 ]] && alias pmr='sudo pacman -Rns' || alias pmr='pacman -Rns'  # remove pkg + unneeded deps + conf
+	[[ $EUID -ne 0 ]] && alias pmy='sudo pacman -Syy' || alias pmy='pacman -Syy' # force sync repos
+	[[ $EUID -ne 0 ]] && alias pmu='sudo pacman -Syyuu' || alias pmu='pacman -Syyuu' # full system upgrade / enable downgrade
+	[[ $EUID -ne 0 ]] && alias pmd='sudo pacman -Syyuuw --noconfirm' || alias pmd='pacman -Syyuuw --noconfirm' # just download updates
+	[[ $EUID -ne 0 ]] && alias pmid='sudo pacman -Suu --noconfirm && sudo pacdiff' || alias pmid='pacman -Suu --noconfirm && pacdiff' # install downloaded
+	alias pmo='pacman -Qdt'  # list orphans
+	[[ $EUID -ne 0 ]] && alias pmor='sudo pacman -Rns $(pacman -Qtdq)' || alias pmor='pacman -Rns $(pacman -Qtdq)' # recursively remove orphans
+	[[ $EUID -ne 0 ]] && alias pmfy='sudo pacman -Fy' || alias pmfy='pacman -Fy'  # sync file db
+fi
+
+# system runlevel equivs
+[[ $EUID -ne 0 ]] && alias rl0='sudo systemctl isolate poweroff.target' || alias rl0='systemctl isolate poweroff.target' # poweroff
+[[ $EUID -ne 0 ]] && alias rl1='sudo systemctl isolate rescue.target' || alias rl1='systemctl isolate rescue.target' # single user
+[[ $EUID -ne 0 ]] && alias rl3='sudo systemctl isolate multi-user.target' || alias rl3='systemctl isolate multi-user.target' # multi-user / network / no gui
+[[ $EUID -ne 0 ]] && alias rl5='sudo systemctl isolate default.target' || alias rl5='systemctl isolate default.target' # multi-user / network / gui
+[[ $EUID -ne 0 ]] && alias rl6='sudo systemctl isolate 	reboot.target' || alias rl6='systemctl isolate reboot.target' # reboot
+
+alias g='git'	# git
+
+alias stow='stow -v'	# stow verbose
+
+alias dd='dd status=progress'	# dd progress
+
+alias ifconfig='echo -e "\n** Deprecated: use ip **\n"; ip a'
+
+alias free='free -h'    # free human readable
+alias df='df -h'        # disk free human readable
+alias du='du -hx'       # disk usage human readable
+alias ncdu='ncdu -x'    # do not cross fs boundaries
+
+alias more='less'	# less is more
+alias less='less -I' # search ignore case
+alias vim='nvim'
+alias diff='colordiff'
+alias pgrep='pgrep -a'
+
+# dotfiles git alias
+# [The best way to store your dotfiles: A bare Git repository](https://www.atlassian.com/git/tutorials/dotfiles)
+#alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+#alias dt='dotfiles'
+#dotadd() {
+#	[[ "$1" == '-e' ]] && { ${EDITOR:-vim} ~/.gittrack && return 0; }
+#	if [[ "$1" =~ '*' || -e "$1" ]]; then
+#		echo "$1" >> ~/.gittrack
+#		echo "$1 added to ~/.gittrack"
+#		sort -o ~/.gittrack ~/.gittrack
+#	else
+#		echo "Error: file/directory does not exist!"
+#		return 1
+#	fi
+#}
+#alias dta='dotadd'
+
+# barrier kvm
+if $(command -v barrier); then
+	alias barrier-start='systemctl --user start barrier.service'
+	alias barrier-stop='systemctl --user stop barrier.service'
+	alias barrier-status='systemctl --user is-active barrier.service'
+fi
+
+alias taz='ssh taz'
+alias nailah='ssh nailah'
+alias maisie='ssh maisie'
+alias jax='ssh jax'
+
+alias irc='irssi -n trailjeep -c freenode'
+
+alias podplay='mplayer -af scaletempo -speed 1.5 '	# mplayer play podcasts @1.5x
+
+if [ -f /etc/armbian-release ]; then
+    alias cls='clear; run-parts /etc/update-motd.d/'
+else
+    alias cls='clear; uname -a; echo; lsb_release -ds; echo' # clear screen
+fi
+
+alias md='mkdir -pv'
+alias distro='lsb_release -a'
+
+alias hg='history|grep'
+alias cpv='rsync -ah --info=progress2'
+
+if $(command -v trash >/dev/null 2>&1); then
+	rm() {
+		for a in "$@"; do
+			[[ ${a::1} == '-' ]] || trash-put "$a"
+        done
+	}
+else
+	alias rm='rm -i'
+fi
+
+# ANSI colors
+alias ansi-colors='for attr in $(seq 0 1); do for fg in $(seq 30 37); do for bg in $(seq 40 47); do printf "\033[$attr;${bg};${fg}m$attr;$fg;$bg\033[m "; done; echo; done; done'
+
+# external ip
+if $(command -v dig >/dev/null 2>&1); then
+    alias extip='dig +short myip.opendns.com @resolver1.opendns.com'
+else
+    alias extip=$'nslookup myip.opendns.com resolver1.opendns.com | tail -2 | awk \'{print $2}\''
+fi
+
+# weather & moon phase
+alias wx='curl "http://wttr.in/06437"'
+alias wxc='curl "http://wttr.in/HVN?format=%c+%C+%f\n+%hH+%w+%P\n+%m+%l"'
+alias wx1='curl "http://wttr.in/HVN?format=2"'
+alias moon='curl "http://wttr.in/moon"'
+
+# logout self
+alias lout='loginctl terminate-user `whoami`'
+
+alias sc-edit='sqlitebrowser ~/.local/share/plasmashell/QML/OfflineStorage/Databases/29e9d8e295b1d5b3002d2d3d5baa4c37.sqlite'
+
+if $(command -v tmatrix >/dev/null 2>&1); then
+    alias matrix='tmatrix -t `echo "$USER@$HOSTNAME"`'
+fi
+
+if $(command -v cht.sh >/dev/null 2>&1); then
+    alias cht='cht.sh'
+    kbd() {
+        cht.sh kbd:"$1"
+    }
+    alias kbdl='find $HOME/.cheat.sh/upstream/keyboard/ -name "*.md" -printf "%f\n" | sed "s/.md//" | grep -v README'
+fi
+
+# calc plasmoid
+if [[ $XDG_CURRENT_DESKTOP == "KDE" ]]; then
+    alias calc='[[ $(pgrep -f calculator) ]] && pkill -f calculator || plasmawindowed org.kde.plasma.calculator &>/dev/null &'
+fi
+
+alias journalctl='journalctl -o short-iso'
+
+if $(command -v docker >/dev/null 2>&1); then
+    alias ds='docker inspect -f "{{.State.Status}}"'
+    if $(docker images | grep -qs "lazyteam/lazydocker"); then
+        alias lzd='docker run --rm -it --name lazydocker -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker/volumes/lazydocker:/.config/jesseduffield/lazydocker lazyteam/lazydocker'
+    fi
+    if $(docker images | grep -qs "jauderho/dive"); then
+        alias dive='docker run --rm -it --name dive -v /var/run/docker.sock:/var/run/docker.sock jauderho/dive'
+    fi
+fi
+
+# sudo - use user aliases
+alias sudo='sudo '
+
+alias musikcube='/bin/konsole --nofork --profile tunes --hide-menubar --hide-tabbar -qwindowtitle musikcube -e musikcube &; disown'
+alias pyradio='/bin/konsole --nofork --profile tunes --hide-menubar --hide-tabbar -qwindowtitle pyradio -e pyradio &; disown'

@@ -5,9 +5,3 @@ alias rl1='sudo systemctl isolate rescue.target'	# single user
 alias rl3='sudo systemctl isolate multi-user.target'# multi-user / network / no gui
 alias rl5='sudo systemctl isolate default.target'	# multi-user / network / gui
 alias rl6='sudo systemctl isolate  reboot.target'	# reboot
-
-alias scl='systemctl'
-alias scls='systemctl status'
-alias jcl='journalctl -o short-iso'
-alias hcl='hostnamectl'
-

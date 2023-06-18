@@ -1,0 +1,10 @@
+# fortune / dogsay
+#if [[ "$HOSTNAME" == "MNJ-PLASMA-JEFF" && "$(command -v dogsay)" && "$(command -v fortune)" ]]; then
+#        IFS=", " read -r -a dogs <<< $(dogsay -l | sed 's/Possible dogs are: //')
+#        dog=${dogs["$[RANDOM % ${#dogs[@]}]"]}
+#        fortune -e "$HOME"/.local/share/fortune | dogsay -d "$dog"
+#fi
+
+# [ -f ~/.agenda.text ] && { echo -e "\n\e[0;93mAgenda――――――――――――――――――――――――――――――――――――――――\e[0m"; cat ~/.agenda.text; echo -e "\e[0;93m――――――――――――――――――――――――――――――――――――――――――――――\e[0m"; }
+
+[[ $(hostname) == "MNJ-PLASMA-JEFF" && "$(command -v fortune)" ]] && { fortune -e "$HOME"/.local/share/fortune/my-collected-quotes | fold -s -w 100; echo; }
